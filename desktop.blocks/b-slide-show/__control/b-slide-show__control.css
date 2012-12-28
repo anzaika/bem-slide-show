@@ -1,0 +1,47 @@
+.b-slide-show__control
+{
+    position: absolute;
+
+    bottom: 0;
+    z-index: 1;
+
+    width: 50px;
+    height: 50px;
+
+    opacity: 0.5;
+
+    -webkit-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+
+    -webkit-transition: opacity 0.2s linear;
+}
+
+.b-slide-show__control:hover
+{
+    opacity: 1;
+}
+
+.b-slide-show__control_role_next
+{
+    right: 40%;
+    background-image: url('arrow.svg');
+}
+
+.b-slide-show__control_role_prev
+{
+    left: 40%;
+    background-image: url('arrow.svg');
+    -webkit-transform: scaleX(-1);
+}
+
+.b-slide-show__control_role_autoplay
+{
+    left: 49%;
+    background-image: url('ffw.svg');
+}
+
+.b-slide-show__control_role_autoplay.b-slide-show__control_active_yes
+{
+    left: 49%;
+    background-image: url('pause.svg');
+}

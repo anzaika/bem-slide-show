@@ -1,0 +1,11 @@
+block b-progress-bar {
+    js: true
+
+    elem filling {
+         tag: 'span'
+    }
+
+    content: [
+        { elem: 'filling'}
+    ]
+}

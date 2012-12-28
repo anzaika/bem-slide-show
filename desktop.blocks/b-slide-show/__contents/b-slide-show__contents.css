@@ -1,0 +1,48 @@
+.b-slide-show__contents
+{
+    position: absolute;
+
+    left: 5px;
+
+    width: 250px;
+    height: 500px;
+
+    background-color: #e5cca9;
+
+    -webkit-transition: top 0.6s linear;
+}
+
+
+.b-slide-show__contents_hidden_yes
+{
+    top: -500px;
+}
+
+.b-slide-show__contents_hidden_no
+{
+    top: 0;
+}
+
+.b-slide-show__contents .b-list
+{
+    margin-left:  25px;
+    padding: 0;
+
+    line-height: 1.5;
+}
+
+.b-slide-show__contents-item
+{
+    color: #5279b3;
+}
+
+.b-slide-show__contents-item:hover
+{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.b-slide-show__contents-item_current_yes
+{
+    text-decoration: underline;
+}

@@ -1,0 +1,7 @@
+block b-image {
+    tag: 'img'
+
+    attrs: {
+        return { src: this.ctx.content }
+    }
+}

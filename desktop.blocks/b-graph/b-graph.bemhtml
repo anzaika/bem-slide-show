@@ -1,0 +1,7 @@
+block b-graph {
+    js: true
+
+    content: [
+        { elem: 'drawing' }
+    ]
+}

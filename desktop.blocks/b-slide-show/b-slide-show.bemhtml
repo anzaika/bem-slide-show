@@ -1,0 +1,37 @@
+block b-slide-show {
+
+     js: true
+
+     elem slide {
+        this.isFirst() {
+            elemMods: {current: 'yes'}
+        }
+        mix: [{ elemMods: {pos: this.position-1} }],
+    }
+
+    elem progress {
+        content: { block: 'b-progress-bar' }
+    }
+
+    elem control {
+        tag: 'a'
+        attrs: { href: '#' }
+    }
+
+    elem contents-item {
+        this.isFirst() {
+            elemMods: {current: 'yes'}
+        }
+        tag: 'a',
+        mix: [{ elemMods: {pos: this.position-1} }]
+    }
+
+    content: [
+        applyNext(),
+        { elem: 'progress' },
+        { elem: 'control', elemMods: { role: 'next' } },
+        { elem: 'control', elemMods: { role: 'prev' } },
+        { elem: 'control', elemMods: { role: 'autoplay' } }
+    ]
+
+}
