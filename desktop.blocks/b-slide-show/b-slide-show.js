@@ -7,8 +7,6 @@ BEM.DOM.decl('b-slide-show', {
             this._current = this.elem('slide', 'current', 'yes');
             this._onHashChange();
 
-            // this.cureContentsItems();
-
             this
                 .bindToDoc('keydown', this._onKeyDown)
                 .bindToWin('hashchange', this._onHashChange)
@@ -58,9 +56,7 @@ BEM.DOM.decl('b-slide-show', {
     },
 
     _onBookmarkClick : function() {
-
-            this.toggleMod(this.elem('contents'), 'hidden', 'no', 'yes');
-
+        this.toggleMod(this.elem('contents'), 'hidden', 'no', 'yes');
     },
 
     _onHashChange : function() {
@@ -119,13 +115,19 @@ BEM.DOM.decl('b-slide-show', {
 
     },
 
+   /*
+    * Decides which action to trigger based on the keypress event.
+    *
+    * @private
+    * @param {f.Event} e event object
+    */
     _onKeyDown : function(e) {
 
         var key = e.keyCode;
 
-        // right and space
-        // than
-        // left
+        // 39, 32 - right arrow and space
+        // 37     - left arrow
+
         if ( key === 39 || key === 32 ) {
 
             this.show('next');

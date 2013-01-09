@@ -53,6 +53,8 @@ BEM.DOM.decl('b-progress-bar', {
             ._updateProgress()
             ._setTimer(duration/100);
 
+        return this;
+
     },
 
     stop : function() {
