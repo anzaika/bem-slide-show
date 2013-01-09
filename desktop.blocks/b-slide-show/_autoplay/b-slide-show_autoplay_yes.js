@@ -16,29 +16,21 @@ BEM.DOM.decl('b-slide-show', {
 
             yes : function() {
 
-                this
-                    .on('autoplayTimer', this._onAutoplayTimer)
-                    .on('autoplayFinish', this._onAutoplayFinish)
-                    .on('slideChange', this._onSlideChange)
-                    .on('outOfSlides', this._onOutOfSlides)
-                    .afterCurrentEvent(function() { this._setTimer(); });
+                this.afterCurrentEvent(function() {
 
+                    this
+                        ._manageHandlers('on')
+                        ._start();
 
-                this._startProgress();
-
+                });
 
             },
 
             '' : function() {
 
                 this
-                    .un('autoplayTimer', this._onAutoplayTimer)
-                    .un('autoplayFinish', this._onAutoplayFinish)
-                    .un('slideChange', this._onSlideChange)
-                    .un('outOfSlides', this._onOutOfSlides);
-
-                this._clearTimer();
-                this._stopProgress();
+                    ._manageHandlers('un')
+                    ._stop();
 
             }
 
@@ -46,6 +38,12 @@ BEM.DOM.decl('b-slide-show', {
 
     },
 
+   /*
+    * Decides which action to trigger based on the keypress event.
+    *
+    * @private
+    * @param {f.Event} e event object
+    */
     _onKeyDown : function(e) {
 
         this.__base.apply(this, arguments);
@@ -80,31 +78,78 @@ BEM.DOM.decl('b-slide-show', {
 
         return this;
 
-    },
-
-    _startProgress : function() {
-
-        this
-            .setMod(this.elem('progress'), 'active', 'yes')
-            .findBlockInside('b-progress-bar')
-            .start(this.params.autoplayTimerInterval);
-
-        return this;
-
-    },
-
-    _stopProgress : function() {
-
-        this
-            .delMod(this.elem('progress'), 'active')
-            .findBlockInside('b-progress-bar')
-            .stop();
-
     }
 
 });
 
 BEM.DOM.decl({ block: 'b-slide-show', modName: 'autoplay', modVal: 'yes' }, {
+
+    onElemSetMod : {
+
+        progress : {
+
+            active : {
+
+                yes : function() {
+
+                    var interval =
+                        this.params.autoplayTimerInterval;
+
+                    this._progressBar =
+                        this._progressBar ||
+                        this.findBlockInside('progress', 'b-progress-bar');
+
+                    this._progressBar.start(interval);
+
+                },
+
+                '' : function() {
+
+                    this._progressBar.stop();
+
+                }
+
+            }
+
+        }
+
+    },
+
+   /*
+    * Subscribe and unsubscribe event handlers.
+    *
+    * @private
+    * @param {string} action 'on' or 'un'
+    */
+    _manageHandlers : function(action) {
+
+        if (action != 'on' && action != 'un')
+            throw "_manageHandlers accepts only 'on' or 'un' as params, " +
+                  "but received: " + action ;
+
+        return this
+                   [action]('autoplayTimer',  this._onAutoplayTimer)
+                   [action]('autoplayFinish', this._onAutoplayFinish)
+                   [action]('slideChange',    this._onSlideChange)
+                   [action]('outOfSlides',    this._onOutOfSlides);
+
+    },
+
+    _start : function() {
+
+        this._setTimer();
+
+        return this.setMod(this.elem('progress'), 'active', 'yes');
+
+    },
+
+    _stop : function() {
+
+        return this
+                   ._clearTimer()
+                   .delMod(this.elem('progress'), 'active');
+
+    },
 
     _setTimer : function() {
 
