@@ -20,7 +20,7 @@ BEM.DOM.decl('b-slide-show', {
 
                     this
                         ._manageHandlers('on')
-                        ._start();
+                        .start();
 
                 });
 
@@ -30,7 +30,7 @@ BEM.DOM.decl('b-slide-show', {
 
                 this
                     ._manageHandlers('un')
-                    ._stop();
+                    .stop();
 
             }
 
@@ -55,11 +55,7 @@ BEM.DOM.decl('b-slide-show', {
     },
 
     _onAutoplayTimer : function() {
-
         this.next();
-
-        return this;
-
     },
 
     _onControlClick : function(e) {
@@ -123,10 +119,6 @@ BEM.DOM.decl({ block: 'b-slide-show', modName: 'autoplay', modVal: 'yes' }, {
     */
     _manageHandlers : function(action) {
 
-        if (action != 'on' && action != 'un')
-            throw "_manageHandlers accepts only 'on' or 'un' as params, " +
-                  "but received: " + action ;
-
         return this
                    [action]('autoplayTimer',  this._onAutoplayTimer)
                    [action]('autoplayFinish', this._onAutoplayFinish)
@@ -134,7 +126,7 @@ BEM.DOM.decl({ block: 'b-slide-show', modName: 'autoplay', modVal: 'yes' }, {
 
     },
 
-    _start : function() {
+    start : function() {
 
         this._setTimer();
 
@@ -142,7 +134,7 @@ BEM.DOM.decl({ block: 'b-slide-show', modName: 'autoplay', modVal: 'yes' }, {
 
     },
 
-    _stop : function() {
+    stop : function() {
 
         return this
                    ._clearTimer()

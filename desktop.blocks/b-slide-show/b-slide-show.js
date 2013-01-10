@@ -148,7 +148,7 @@ BEM.DOM.decl('b-slide-show', {
     },
 
    /*
-    *
+    * Check string for being a valid candidate for 'pos' modificator value.
     *
     * @param {string} value 'pos' modificator value.
     */
@@ -158,8 +158,13 @@ BEM.DOM.decl('b-slide-show', {
                      .length;
     },
 
+   /*
+    * Check value to equal to 'pos' modificator of the last slide.
+    *
+    * @param {string} value
+    */
     _isPosLast : function(value) {
-        return value === this.elem('slide').length-1;
+        return parseInt(value, 10) === this.elem('slide').length-1;
     },
 
    /*
