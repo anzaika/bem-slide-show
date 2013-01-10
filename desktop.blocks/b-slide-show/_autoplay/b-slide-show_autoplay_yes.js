@@ -56,7 +56,7 @@ BEM.DOM.decl('b-slide-show', {
 
     _onAutoplayTimer : function() {
 
-        this.show('next');
+        this.next();
 
         return this;
 
@@ -130,7 +130,6 @@ BEM.DOM.decl({ block: 'b-slide-show', modName: 'autoplay', modVal: 'yes' }, {
         return this
                    [action]('autoplayTimer',  this._onAutoplayTimer)
                    [action]('autoplayFinish', this._onAutoplayFinish)
-                   [action]('slideChange',    this._onSlideChange)
                    [action]('outOfSlides',    this._onOutOfSlides);
 
     },
@@ -196,9 +195,13 @@ BEM.DOM.decl({ block: 'b-slide-show', modName: 'autoplay', modVal: 'yes' }, {
     },
 
     _onSlideChange: function() {
+
+        this.__base.apply(this, arguments);
+
         this
             ._startProgress()
             ._resetTimer();
+
     }
 
 });
