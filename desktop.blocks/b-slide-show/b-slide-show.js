@@ -148,7 +148,7 @@ BEM.DOM.decl('b-slide-show', {
     },
 
    /*
-    * Check 
+    *
     *
     * @param {string} value 'pos' modificator value.
     */
@@ -211,7 +211,7 @@ BEM.DOM.decl('b-slide-show', {
 
         if (role === 'next' || role === 'prev') {
 
-            this.show(role);
+            this[role]();
 
         }
 
