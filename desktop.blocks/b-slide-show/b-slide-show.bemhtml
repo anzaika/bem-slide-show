@@ -6,7 +6,8 @@ block b-slide-show {
         this.isFirst() {
             elemMods: {current: 'yes'}
         }
-        mix: [{ elemMods: {pos: this.position-1} }],
+        mix: [{ elemMods: {pos: this.position-1} }]
+        attrs: { title: this.ctx.title }
     }
 
     elem progress {
@@ -18,12 +19,42 @@ block b-slide-show {
         attrs: { href: '#' }
     }
 
+   elem contents {
+        elemMods: { hidden: 'yes' }
+        content: [
+            {
+                elem: 'list',
+                content: [
+                    {
+                        block: 'b-list',
+                        mods: { ordered: 'yes' },
+                        content: [ this.ctx.content ]
+                    }
+                ]
+            },
+            { elem: 'bookmark' }
+        ]
+    }
+
     elem contents-item {
         this.isFirst() {
             elemMods: {current: 'yes'}
         }
         tag: 'a',
-        mix: [{ elemMods: {pos: this.position-1} }]
+        mix: [{ elemMods: {pos: this.position-1} },
+              {block: 'b-list', elem: 'item' }]
+    }
+
+    default, !this.ctx._contents: {
+
+        console.log('hello', this.ctx);
+
+        this.ctx._contents = true;
+
+        applyCtx(
+            [this.ctx, {block:'b-contents'}]
+        );
+
     }
 
     content: [
