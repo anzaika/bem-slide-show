@@ -14,6 +14,7 @@
             content: [
                 {
                     elem: 'slide',
+                    title: 'Первый слайд',
                     content: [
                         {
                             block: 'b-list',
@@ -32,10 +33,12 @@
                 },
                 {
                     elem: 'slide',
+                    title: 'Второй слайд и очень длинное название',
                     content: "Это второй слайдик"
                 },
                 {
                     elem: 'slide',
+                    title: 'Третий слайд',
                     content: "А это действительно третий"
                 },
                 {
