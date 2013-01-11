@@ -8,6 +8,7 @@ BEM.DOM.decl('b-slide-show', {
             this._currentContents = this.elem('contents-item', 'current', 'yes');
 
             this._onHashChange();
+            this._shortenTitlesInContents();
 
             this
                 .bindToDoc('keydown', this._onKeyDown)
@@ -91,14 +92,14 @@ BEM.DOM.decl('b-slide-show', {
         return parseInt(this.getMod('pos'), 10);
     },
 
-   /*
+    /*
     * Switch to next slide.
     */
     next : function() {
         this.setPos(this.getPosNum()+1);
     },
 
-   /*
+    /*
     * Switch to previous slide.
     */
     prev : function() {
@@ -266,6 +267,25 @@ BEM.DOM.decl('b-slide-show', {
     */
     _onHashChange : function() {
         this.setPos(this._getHash());
+    },
+
+    _shortenTitlesInContents : function() {
+
+        this
+            .elem('contents-item')
+            .text( this.changeThis(function(ind, text) {
+                return this._shortenStringTo(text, 26);
+            }));
+
+    },
+
+    _shortenStringTo : function(string, length) {
+
+        if (string.length > length-2)
+            return string.substring(0,length-2)+"...";
+
+        return string;
+
     }
 
 });
