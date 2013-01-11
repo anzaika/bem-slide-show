@@ -13,12 +13,10 @@
     min-width: 900px;
     min-height: 600px;
 
-    background-color: #eee;
-
     text-align: center;
     font-size: 24px;
 
-    -webkit-transition: opacity 0.6s linear;
+    -webkit-transition: opacity 0.2s linear;
 }
 
 .b-slide-show__slide_current_yes
