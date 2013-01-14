@@ -4,11 +4,13 @@ BEM.DOM.decl('b-slide-show', {
 
         js : function() {
 
+            this._slideCount      = this.elem('slide').length;
             this._currentSlide    = this.elem('slide', 'current', 'yes');
             this._currentContents = this.elem('contents-item', 'current', 'yes');
 
-            this._onHashChange();
-            this._shortenTitlesInContents();
+            this
+                ._shortenTitlesInContents()
+                ._onHashChange();
 
             this
                 .bindToDoc('keydown', this._onKeyDown)
@@ -29,7 +31,9 @@ BEM.DOM.decl('b-slide-show', {
                     ._setHash(modVal.toString());
 
                 this.afterCurrentEvent(function() {
-                    this.trigger('slideChange');
+                    this
+                        ._updateProgress()
+                        .trigger('slideChange');
                 });
 
             } else if (this._isPosLast(this.getPosNum())) {
@@ -266,6 +270,8 @@ BEM.DOM.decl('b-slide-show', {
     */
     _setHash : function(value) {
         location.hash = value;
+
+        return this;
     },
 
    /*
@@ -275,6 +281,7 @@ BEM.DOM.decl('b-slide-show', {
     */
     _onHashChange : function() {
         this.setPos(this._getHash());
+        return this;
     },
 
     _shortenTitlesInContents : function() {
@@ -285,6 +292,8 @@ BEM.DOM.decl('b-slide-show', {
                 return this._shortenStringTo(text, 26);
             }));
 
+        return this;
+
     },
 
     _shortenStringTo : function(string, length) {
@@ -294,6 +303,18 @@ BEM.DOM.decl('b-slide-show', {
 
         return string;
 
+    },
+
+    _updateProgress : function() {
+
+        var progress = Math.floor(
+            ((this.getPosNum()+1)/this._slideCount)*100
+        );
+
+        this.findBlockInside( {block: 'b-progress-bar'} )
+            .setMod('progress', progress.toString());
+
+        return this;
     }
 
 });

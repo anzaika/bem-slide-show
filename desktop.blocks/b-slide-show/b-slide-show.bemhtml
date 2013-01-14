@@ -10,7 +10,7 @@ block b-slide-show {
         attrs: { playtime: this.ctx.playtime || '0'}
     }
 
-    elem progress {
+    elem bar {
         content: { block: 'b-progress-bar' }
     }
 
@@ -30,7 +30,7 @@ block b-slide-show {
 
     content: [
         applyNext(),
-        { elem: 'progress' },
+        { elem: 'bar' },
         { elem: 'control', elemMods: { role: 'next' } },
         { elem: 'control', elemMods: { role: 'prev' } },
         { elem: 'control', elemMods: { role: 'autoplay' } }
