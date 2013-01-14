@@ -6,7 +6,8 @@ block b-slide-show {
         this.isFirst() {
             elemMods: {current: 'yes'}
         }
-        mix: [{ elemMods: {pos: this.position-1} }],
+        mix: [{ elemMods: {pos: this.position-1} }]
+        attrs: { playtime: this.ctx.playtime || '0'}
     }
 
     elem progress {
