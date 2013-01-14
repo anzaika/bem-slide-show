@@ -4,7 +4,7 @@ BEM.DOM.decl('b-slide-show', {
 
         return {
 
-            autoplayTimerInterval: 2000
+            autoplayTimerInterval: 10000
 
         };
 
@@ -54,10 +54,6 @@ BEM.DOM.decl('b-slide-show', {
 
     },
 
-    _onAutoplayTimer : function() {
-        this.next();
-    },
-
     _onControlClick : function(e) {
 
         this.__base.apply(this, arguments);
@@ -80,37 +76,6 @@ BEM.DOM.decl('b-slide-show', {
 
 BEM.DOM.decl({ block: 'b-slide-show', modName: 'autoplay', modVal: 'yes' }, {
 
-    onElemSetMod : {
-
-        progress : {
-
-            active : {
-
-                yes : function() {
-
-                    var interval =
-                        this.params.autoplayTimerInterval;
-
-                    this._progressBar =
-                        this._progressBar ||
-                        this.findBlockInside('progress', 'b-progress-bar');
-
-                    this._progressBar.start(interval);
-
-                },
-
-                '' : function() {
-
-                    this._progressBar.stop();
-
-                }
-
-            }
-
-        }
-
-    },
-
    /*
     * Subscribe and unsubscribe event handlers.
     *
@@ -120,42 +85,47 @@ BEM.DOM.decl({ block: 'b-slide-show', modName: 'autoplay', modVal: 'yes' }, {
     _manageHandlers : function(action) {
 
         return this
-                   [action]('autoplayTimer',  this._onAutoplayTimer)
-                   [action]('autoplayFinish', this._onAutoplayFinish)
-                   [action]('outOfSlides',    this._onOutOfSlides);
+                    [action]('slideChange', this.start)
+                    [action]('timer',       this.next)
+                    [action]('outOfSlides', this.stop);
 
     },
 
     start : function() {
 
-        this._setTimer();
+        var interval =
+            this
+                ._currentSlide
+                .attr('playtime');
 
-        return this.setMod(this.elem('progress'), 'active', 'yes');
+        this._setTimer(parseInt(interval, 10));
 
     },
 
     stop : function() {
 
-        return this
-                   ._clearTimer()
-                   .delMod(this.elem('progress'), 'active');
+        this
+            ._clearTimer()
+            .delMod('autoplay')
+            .setMod(this.elem('ticker'), 'active', 'no')
+            .toggleMod(this.elem('control', 'role', 'autoplay'), 'active', 'yes');
 
     },
 
-    _setTimer : function() {
+    _setTimer : function(interval) {
+
+        this._clearTimer();
 
         this._autoplayTimer =
             setTimeout(
 
                 this.changeThis(function() {
-                    this.trigger('autoplayTimer');
+                    this.trigger('timer');
                 }),
 
-                this.params.autoplayTimerInterval
+                interval
 
             );
-
-        return this;
 
     },
 
@@ -164,35 +134,6 @@ BEM.DOM.decl({ block: 'b-slide-show', modName: 'autoplay', modVal: 'yes' }, {
         clearTimeout(this._autoplayTimer);
 
         return this;
-
-    },
-
-    _resetTimer : function() {
-
-        this
-            ._clearTimer()
-            ._setTimer();
-
-        return this;
-
-    },
-
-    _onOutOfSlides : function() {
-
-        this
-            ._clearTimer()
-            .delMod('autoplay')
-            .setMod(this.elem('ticker'), 'active', 'no')
-            .toggleMod(this.elem('control', 'role', 'autoplay'), 'active', 'yes');
-    },
-
-    _onSlideChange: function() {
-
-        this.__base.apply(this, arguments);
-
-        this
-            ._startProgress()
-            ._resetTimer();
 
     }
 

@@ -13,33 +13,46 @@
             block: 'b-slide-show',
             content: [
                 {
-                    elem: 'slide',
-                    title: 'Первый слайд',
+                    elem: 'slides',
                     content: [
                         {
-                            block: 'b-list',
-                            mods: { nobullets: 'yes' },
-                            content:
-                                [
-                                    "Первый релиз 20 сентября 2009",
-                                    "Крайний релиз 13 октяря 2012",
-                                    "Лицензия BSD",
-                                    "Уникальное имя - жутко удобно при поиске =)"
-                                ].map( function(val){
-                                    return {elem: 'item', content: val};
-                                })
+                            elem: 'slide',
+                            elemMods: { 'fragmented': 'yes' },
+                            title: 'Первый слайд',
+                            playtime: 5,
+                            content: [
+                                {
+                                    block: 'b-list',
+                                    mods: { nobullets: 'yes', 'fragment': '0' },
+                                    content:
+                                        [
+                                            "Первый релиз 20 сентября 2009",
+                                            "Крайний релиз 13 октяря 2012",
+                                            "Лицензия BSD",
+                                            "Уникальное имя - жутко удобно при поиске =)"
+                                        ].map( function(val){
+                                            return {elem: 'item', content: val};
+                                        })
+                                },
+                                {
+                                    elem: 'second',
+                                    elemMods: { 'fragment': '1' }
+                                }
+                            ]
+                        },
+                        {
+                            elem: 'slide',
+                            title: 'Второй слайд и очень длинное название',
+                            playtime: 4,
+                            content: "Это второй слайдик"
+                        },
+                        {
+                            elem: 'slide',
+                            title: 'Третий слайд',
+                            playtime: 3,
+                            content: "А это действительно третий"
                         }
                     ]
-                },
-                {
-                    elem: 'slide',
-                    title: 'Второй слайд и очень длинное название',
-                    content: "Это второй слайдик"
-                },
-                {
-                    elem: 'slide',
-                    title: 'Третий слайд',
-                    content: "А это действительно третий"
                 },
                 {
                     elem: 'contents',

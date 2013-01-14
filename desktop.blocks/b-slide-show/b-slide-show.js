@@ -28,6 +28,10 @@ BEM.DOM.decl('b-slide-show', {
                     ._updateCurrentInContents(modVal)
                     ._setHash(modVal.toString());
 
+                this.afterCurrentEvent(function() {
+                    this.trigger('slideChange');
+                });
+
             } else if (this._isPosLast(this.getPosNum())) {
 
                 this.trigger('outOfSlides');
@@ -96,7 +100,11 @@ BEM.DOM.decl('b-slide-show', {
     * Switch to next slide.
     */
     next : function() {
+
         this.setPos(this.getPosNum()+1);
+
+        return this;
+
     },
 
     /*
