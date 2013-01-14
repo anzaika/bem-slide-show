@@ -23,7 +23,8 @@ block b-slide-show {
             elemMods: {current: 'yes'}
         }
         tag: 'a',
-        mix: [{ elemMods: {pos: this.position-1} }]
+        mix: [{ elemMods: {pos: this.position-1} },
+              {block: 'b-list', elem: 'item' }]
     }
 
     content: [
