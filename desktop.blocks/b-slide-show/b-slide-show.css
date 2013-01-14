@@ -17,6 +17,9 @@
     font-size: 24px;
 
     -webkit-transition: opacity 0.2s linear;
+       -moz-transition: opacity 0.2s linear;
+         -o-transition: opacity 0.2s linear;
+            transition: opacity 0.2s linear;
 }
 
 .b-slide-show__slide_current_yes
