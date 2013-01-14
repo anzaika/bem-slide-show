@@ -52,24 +52,6 @@ BEM.DOM.decl('b-slide-show', {
             this.toggleMod('autoplay', 'yes');
         }
 
-    },
-
-    _onControlClick : function(e) {
-
-        this.__base.apply(this, arguments);
-
-        var role = this.getMod($(e.target), 'role');
-
-        if (role === 'autoplay') {
-
-            this
-                .toggleMod('autoplay', 'yes')
-                .toggleMod(this.elem('control', 'role', 'autoplay'), 'active', 'yes');
-
-        }
-
-        return this;
-
     }
 
 });

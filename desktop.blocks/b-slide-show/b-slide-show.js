@@ -215,29 +215,6 @@ BEM.DOM.decl('b-slide-show', {
     },
 
    /*
-    * Decides which action to trigger based on
-    * which control button was clicked.
-    *
-    * @private
-    * @param {f.Event}
-    */
-    _onControlClick : function(e) {
-
-        e.preventDefault();
-
-        var role = this.getMod($(e.target), 'role');
-
-        if (role === 'next' || role === 'prev') {
-
-            this[role]();
-
-        }
-
-        return this;
-
-    },
-
-   /*
     * React to item click in contents.
     *
     * @private

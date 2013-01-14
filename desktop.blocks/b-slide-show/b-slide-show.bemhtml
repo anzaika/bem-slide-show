@@ -30,10 +30,7 @@ block b-slide-show {
 
     content: [
         applyNext(),
-        { elem: 'bar' },
-        { elem: 'control', elemMods: { role: 'next' } },
-        { elem: 'control', elemMods: { role: 'prev' } },
-        { elem: 'control', elemMods: { role: 'autoplay' } }
+        { elem: 'bar' }
     ]
 
 }
