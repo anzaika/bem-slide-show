@@ -19,7 +19,7 @@
                             elem: 'slide',
                             elemMods: { 'fragmented': 'yes' },
                             title: 'Первый слайд',
-                            playtime: 5,
+                            playtime: 2,
                             content: [
                                 {
                                     block: 'b-list',
@@ -43,13 +43,13 @@
                         {
                             elem: 'slide',
                             title: 'Второй слайд и очень длинное название',
-                            playtime: 4,
+                            playtime: 6,
                             content: "Это второй слайдик"
                         },
                         {
                             elem: 'slide',
                             title: 'Третий слайд',
-                            playtime: 3,
+                            playtime: 2,
                             content: "А это действительно третий"
                         }
                     ]

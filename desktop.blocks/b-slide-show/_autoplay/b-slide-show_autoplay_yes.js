@@ -123,7 +123,7 @@ BEM.DOM.decl({ block: 'b-slide-show', modName: 'autoplay', modVal: 'yes' }, {
                     this.trigger('timer');
                 }),
 
-                interval
+                interval*1000
 
             );
 
