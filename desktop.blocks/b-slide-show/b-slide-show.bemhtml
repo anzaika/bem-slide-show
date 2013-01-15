@@ -12,6 +12,7 @@ block b-slide-show {
         this.isFirst() {
             elemMods: {current: 'yes'}
         }
+
         js: { playtime: this.ctx.playtime || 10 },
 
         mix: [{ elemMods: {pos: this.position-1} }]
@@ -39,6 +40,23 @@ block b-slide-show {
     elem control {
         tag: 'a'
         attrs: { href: '#' }
+    }
+
+   elem contents {
+        elemMods: { hidden: 'yes' }
+        content: [
+            {
+                elem: 'list',
+                content: [
+                    {
+                        block: 'b-list',
+                        mods: { ordered: 'yes' },
+                        content: [ this.ctx.content ]
+                    }
+                ]
+            },
+            { elem: 'bookmark' }
+        ]
     }
 
     elem contents-item {

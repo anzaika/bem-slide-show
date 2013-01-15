@@ -221,18 +221,13 @@ BEM.DOM.decl('b-slide-show', {
     */
     _onKeyDown : function(e) {
 
-        var key = e.keyCode;
+        switch(e.keyCode) {
 
-        // 39, 32 - right arrow and space
-        // 37     - left arrow
+            // 39, 32 - right arrow and space
+            case 39: case 32: this.next(); break;
 
-        if ( key === 39 || key === 32 ) {
-
-            this.next();
-
-        } else if ( key === 37 ) {
-
-            this.prev();
+            // 37     - left arrow
+            case 37: this.prev(); break;
 
         }
 
