@@ -78,7 +78,7 @@ BEM.DOM.decl({ block: 'b-slide-show', modName: 'autoplay', modVal: 'yes' }, {
         var interval =
             this
                 ._currentSlide
-                .attr('playtime');
+                .playtime;
 
         this._setTimer(parseInt(interval, 10));
 

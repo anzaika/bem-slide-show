@@ -15,7 +15,6 @@ BEM.DOM.decl('b-slide-show', {
             this
                 .bindToDoc('keydown', this._onKeyDown)
                 .bindToWin('hashchange', this._onHashChange)
-                .bindTo('control', 'click', this._onControlClick)
                 .bindTo('bookmark', 'click', this._onBookmarkClick)
                 .bindTo('contents-item', 'click' ,this._onContentsItemClick);
 
@@ -105,7 +104,15 @@ BEM.DOM.decl('b-slide-show', {
     */
     next : function() {
 
-        this.setPos(this.getPosNum()+1);
+        if( this._isCurrentSlideFragmented() && this._hasFragmentsToShow()) {
+
+            this._showNextFragment();
+
+        } else {
+
+            this.setPos(this.getPosNum()+1);
+
+        }
 
         return this;
 
@@ -116,6 +123,30 @@ BEM.DOM.decl('b-slide-show', {
     */
     prev : function() {
         this.setPos(this.getPosNum()-1);
+    },
+
+    _isCurrentSlideFragmented : function() {
+
+        return this.hasMod(
+            this._currentSlide, 'fragmented'
+        );
+
+    },
+
+    _hasFragmentsToShow : function() {
+
+        return !!this.findElem(this._currentSlide, 'fragment', 'show', 'no')
+                     .length;
+
+    },
+
+    _showNextFragment : function() {
+
+        this.setMod(
+            this.findElem(this._currentSlide, 'fragment', 'show', 'no').first(),
+            'show', 'yes'
+        );
+
     },
 
    /*
@@ -166,9 +197,11 @@ BEM.DOM.decl('b-slide-show', {
     * @param {string} value 'pos' modificator value.
     */
     _isStringValidAsPos : function(value) {
+
         return !!this
                      .elem('slide', 'pos', value)
                      .length;
+
     },
 
    /*
@@ -261,10 +294,14 @@ BEM.DOM.decl('b-slide-show', {
         return this;
     },
 
+   /*
+    * Shortens titles in the list in the contents element.
+    *
+    * @private
+    */
     _shortenTitlesInContents : function() {
 
-        this
-            .elem('contents-item')
+        this.elem('contents-item')
             .text( this.changeThis(function(ind, text) {
                 return this._shortenStringTo(text, 26);
             }));
@@ -273,15 +310,25 @@ BEM.DOM.decl('b-slide-show', {
 
     },
 
+   /*
+    * A utility function used by _shortenTitlesInContents
+    *
+    * @private
+    */
     _shortenStringTo : function(string, length) {
 
         if (string.length > length-2)
-            return string.substring(0,length-2)+"...";
+            return string.substring(0,length-2)+"…";
 
         return string;
 
     },
 
+   /*
+    * Upgrades the progress-bar block to match the current progress.
+    *
+    * @private
+    */
     _updateProgress : function() {
 
         var progress = Math.floor(

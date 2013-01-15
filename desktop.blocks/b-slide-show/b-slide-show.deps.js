@@ -3,11 +3,14 @@
         [
             {
                 mods: { 'autoplay': 'yes' },
-                elems: ['bookmark', 'control', 'contents'],
-                elemMods: [{ role: 'next', role: 'prev', role: 'autoplay' }]
+                elems: ['bookmark', 'control', 'contents', 'fragment']
             },
             {
                 block: 'b-progress-bar'
+            },
+            {
+                block: 'b-list',
+                mods: { ordered: 'yes' }
             }
         ]
 })

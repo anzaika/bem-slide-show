@@ -2,12 +2,34 @@ block b-slide-show {
 
      js: true
 
+     default: {
+        this.titles = this.ctx.content[0].content.map( function(val){ return val.title; } );
+
+        applyNext();
+    }
+
      elem slide {
         this.isFirst() {
             elemMods: {current: 'yes'}
         }
+        js: { playtime: this.ctx.playtime || 10 },
+
         mix: [{ elemMods: {pos: this.position-1} }]
-        attrs: { playtime: this.ctx.playtime || '0'}
+
+        content: [
+            {
+                 elem: 'slide-content',
+                 attrs: { style: this.ctx.style },
+                 content: applyNext()
+            }
+        ]
+    }
+
+    elem fragment {
+        this.isFirst() {
+            elemMods: { show: 'yes' }
+        }
+        attrs: { style: this.ctx.style }
     }
 
     elem bar {
@@ -21,15 +43,34 @@ block b-slide-show {
 
     elem contents-item {
         this.isFirst() {
-            elemMods: {current: 'yes'}
+            elemMods: { current: 'yes' }
         }
         tag: 'a',
         mix: [{ elemMods: {pos: this.position-1} },
               {block: 'b-list', elem: 'item' }]
     }
 
+    elem contents {
+        content: [
+            {
+                elem: 'list',
+                content: [
+                    {
+                        block: 'b-list',
+                        mods: { ordered: 'yes' },
+                        content: this.titles.map( function(val){
+                            return { elem: 'item', mix: {block: 'b-slide-show', elem: 'contents-item' }, content: val }
+                        })
+                    }
+                ]
+            },
+            { elem: 'bookmark' }
+        ]
+    }
+
     content: [
         applyNext(),
+        { elem: 'contents', elemMods: { hidden: 'yes' } },
         { elem: 'bar' }
     ]
 

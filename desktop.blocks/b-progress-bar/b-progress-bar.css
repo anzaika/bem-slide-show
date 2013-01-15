@@ -6,9 +6,10 @@
 
     background: #555;
 
-    -moz-border-radius: 25px;
     -webkit-border-radius: 25px;
-    border-radius: 25px;
+       -moz-border-radius: 25px;
+         -o-border-radius: 25px;
+            border-radius: 25px;
 
 }
 
@@ -42,6 +43,6 @@
                 border-top-left-radius: 20px;
              border-bottom-left-radius: 20px;
 
-    background-color: #58A1B0;
+    background-color: #A4F5AD;
 
 }

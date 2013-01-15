@@ -1,5 +1,7 @@
 block b-list {
     tag: 'ul'
 
+    attrs: { style: this.ctx.style }
+
     elem item, tag: 'li'
 }
